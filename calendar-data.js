@@ -1,0 +1,1 @@
+window.PROVINCE_SCHEDULE=null;
