@@ -68,7 +68,7 @@ function createPublisher({ ui, getSchedule, saveDraft }) {
   }
   async function request(url, options = {}) {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 15000);
+    const timeout = setTimeout(() => controller.abort(), options.method === 'POST' ? 45000 : 15000);
     try {
       return await fetch(url, { ...options, cache: 'no-store', signal: controller.signal });
     } finally { clearTimeout(timeout); }
@@ -216,7 +216,18 @@ function createPublisher({ ui, getSchedule, saveDraft }) {
   async function init() {
     const callback = new URLSearchParams(location.hash.slice(1));
     token = readSession(tokenKey) || '';
-    if (callback.has('github_token')) {
+    if (callback.has('github_error')) {
+      forgetToken();
+      const errors = {
+        state: 'The sign-in session expired. Click Sign in & Publish to GitHub to start again. Your draft is saved.',
+        expired: 'The sign-in code has expired. Start a new sign-in from this editor. Your draft is saved.',
+        cancelled: 'GitHub sign-in was cancelled. You can try again when ready. Your draft is saved.',
+        configuration: 'The GitHub sign-in service needs a configuration update. Your draft is saved.',
+        github_unavailable: 'GitHub sign-in could not finish because the service connection failed. Please try signing in again. Your draft is saved.'
+      };
+      status(ui.signin, 'error', errors[callback.get('github_error')] || 'GitHub sign-in could not finish. Please try again. Your draft is saved.');
+      history.replaceState(null, '', location.pathname + location.search);
+    } else if (callback.has('github_token')) {
       token = callback.get('github_token') || '';
       writeSession(tokenKey, token || null);
       // Clear the returned token before the user copies or shares this page URL.
