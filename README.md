@@ -15,7 +15,7 @@ Responsive two-page calendar: `editor.html` for editing and `index.html` for the
 3. On a computer, open Google Calendar and choose the Google account that should receive the Court dates.
 4. Beside **Other calendars**, select **+ → From URL**, paste the link, and click **Add calendar**.
 
-The Court appears as a subscribed calendar in that account. Enable it in Google Calendar on your phone or tablet if needed. Each work is an all-day event titled **Athelstan Court Sophia No. 193**, for example, with **Piraeus** as its location. The meeting type and language appear in the description.
+The Court appears as a subscribed calendar in that account. Enable it in Google Calendar on your phone or tablet if needed. Each work is an all-day event titled **ATHELSTAN Court Sophia No. 193**, for example, with **Piraeus** as its location. The meeting type, language, and website **https://moa-greece.gr/** appear in the description. Subscription events also use this website in their URL field.
 
 The editor refreshes the Court subscription files whenever you publish changes. Google decides when to fetch updated subscriptions; updates are not immediate. A subscription is read-only and does not give this website access to the visitor's Gmail or private calendar. Visitors can unsubscribe in Google Calendar.
 
