@@ -20,6 +20,8 @@ Responsive two-page calendar: `editor.html` for editing and `index.html` for the
    - **Live calendar:** checks the public calendar data every 10 seconds. It shows **Live calendar updated** only when the live dates match the programme you published, with the verification time.
 6. Click **Open updated live calendar** when the third message turns green.
 
+If GitHub refuses repository access, use **Sign out of editor**, then sign in with an account that can update this repository.
+
 The editor stays open so you can see the result of publishing. If deployment cannot be confirmed within 10 minutes, use **Check live update again**; you do not need to publish the same programme again. Publication status resumes after a refresh in the same tab.
 
 **Save draft alone does not publish to other visitors.** The public page uses the published `calendar-data.js` file. A fresh editor loads that published programme; an existing browser draft is preserved.
