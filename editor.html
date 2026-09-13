@@ -51,7 +51,7 @@ button:focus-visible,a:focus-visible,label.file:focus-within{outline:3px solid v
   </form>
 </section>
 <p id="draftStatus" class="draft-status" role="status" aria-live="polite" aria-atomic="true">Loading the programme…</p>
-<section class="images"><div class="image-box"><strong>Left image — Province emblem</strong><div class="preview" id="emblemPreview">No emblem selected</div><label class="file">Upload left image<input id="emblem" type="file" accept="image/*"></label></div><div class="image-box"><strong>Right image — Provincial Grand Master</strong><div class="preview" id="portraitPreview">No portrait selected</div><label class="file">Upload right image<input id="portrait" type="file" accept="image/*"></label></div></section><section class="rows"><div class="row"><span>Month</span><span>Court</span><span>City</span><span>Date</span><span>Meeting type</span><span></span></div><div id="list"></div></section><button class="add" id="add">+ Add work</button></main><script>
+<section class="images"><div class="image-box"><strong>Left image — Province emblem</strong><div class="preview" id="emblemPreview">No emblem selected</div><label class="file">Upload left image<input id="emblem" type="file" accept="image/*"></label></div><div class="image-box"><strong>Right image — Provincial Grand Master</strong><div class="preview" id="portraitPreview">No portrait selected</div><label class="file">Upload right image<input id="portrait" type="file" accept="image/*"></label></div></section><section class="rows"><div class="row"><span>Month</span><span>Court</span><span>City</span><span>Date</span><span>Meeting type</span><span></span></div><div id="list"></div></section><button class="add" id="add">+ Add work</button></main><script src="calendar-subscriptions.js?v=1"></script><script>
 const courts=[['Homer No. 194','Athens','English','🇬🇧'],['Northern Paladins No. 198','Thessaloniki','English','🇬🇧'],['Rosa Rhodensis No. 192','Rodos','English','🇬🇧'],['Sectio Aurea No. 125','Piraeus','Greek','🇬🇷'],['Frank Hastings No. 195','Zakynthos','English','🇬🇧'],['Sophia No. 193','Piraeus','Greek','🇬🇷'],['William Cartwright No. 196','Corfu','Greek','🇬🇷']], cities=[...new Set(courts.map(x=>x[1]))],types=['Meeting','Installation','Annual Meeting','Emergency Meeting'];
 // GitHub confirms the repository save; the public data confirms the live update.
 function createPublisher({ ui, getSchedule, saveDraft }) {
@@ -93,7 +93,7 @@ function createPublisher({ ui, getSchedule, saveDraft }) {
   }
   async function request(url, options = {}) {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), options.method === 'POST' ? 45000 : 15000);
+    const timeout = setTimeout(() => controller.abort(), options.method ? 45000 : 15000);
     try {
       return await fetch(url, { ...options, cache: 'no-store', signal: controller.signal });
     } finally { clearTimeout(timeout); }
@@ -102,7 +102,7 @@ function createPublisher({ ui, getSchedule, saveDraft }) {
     writeSession(publicationKey, JSON.stringify(pending));
   }
   function savedMessage(publication) {
-    status(ui.repository, 'success', `✓ Saved to GitHub — ${publication.schedule.length} Court works, ${time(publication.savedAt)}.`);
+    status(ui.repository, 'success', `✓ Saved to GitHub — ${publication.schedule.length} Court works${publication.feeds ? " and Court subscriptions" : ""}, ${time(publication.savedAt)}.`);
     ui.repositoryLink.hidden = false;
   }
   function forgetToken() {
@@ -144,10 +144,21 @@ function createPublisher({ ui, getSchedule, saveDraft }) {
       if (!response.ok) throw new Error('Live calendar unavailable');
       const schedule = parseSchedule(await response.text());
       if (version !== monitorVersion) return;
-      if (JSON.stringify(schedule) === JSON.stringify(publication.schedule)) {
+      const dataMatches = JSON.stringify(schedule) === JSON.stringify(publication.schedule);
+      let feedsMatch = true;
+      if (dataMatches && publication.feeds) {
+        const results = await Promise.all(publication.feeds.map(async feed => {
+          if (!/^calendars\/court-[a-z0-9-]+\.ics$/.test(feed.path)) return false;
+          const response = await request(live + feed.path + '?updated=' + Date.now());
+          return response.ok && (await response.text()).replace(/\r\n/g, '\n') === feed.content.replace(/\r\n/g, '\n');
+        }));
+        feedsMatch = results.every(Boolean);
+      }
+      if (version !== monitorVersion) return;
+      if (dataMatches && feedsMatch) {
         publication.liveVerifiedAt = new Date().toISOString();
         rememberPublication();
-        status(ui.deployment, 'success', `✓ Live calendar updated — verified ${time(publication.liveVerifiedAt)}. The published page shows these ${schedule.length} Court works.`);
+        status(ui.deployment, 'success', `✓ Live calendar updated — verified ${time(publication.liveVerifiedAt)}. The published page shows these ${schedule.length} Court works${publication.feeds ? "; subscription files are also live. Google refreshes subscriptions on its own schedule" : ""}.`);
         ui.resultLink.href = live + 'index.html?published=' + Date.now();
         ui.resultLink.textContent = 'Open updated live calendar ↗';
         ui.check.hidden = true;
@@ -206,18 +217,34 @@ function createPublisher({ ui, getSchedule, saveDraft }) {
       }
     } finally { busy = false; updateButton(); }
   }
-  async function githubFile(options = {}) {
-    const response = await request(repository + '/contents/calendar-data.js' + (options.method ? '' : '?ref=main'), {
+  async function githubFile(path, options = {}, allowMissing = false) {
+    const response = await request(repository + '/contents/' + path + (options.method ? '' : '?ref=main'), {
       ...options,
       headers: { Accept: 'application/vnd.github+json', Authorization: 'Bearer ' + token,
         ...(options.method ? { 'Content-Type': 'application/json' } : {}) }
     });
+    if (allowMissing && response.status === 404) return null;
     if (!response.ok) {
       const error = new Error('GitHub request failed');
       error.status = response.status;
       throw error;
     }
     return response.json();
+  }
+  function decodeFile(file) {
+    if (!file || typeof file.content !== 'string' || file.encoding !== 'base64') throw new Error('File not confirmed');
+    return new TextDecoder().decode(Uint8Array.from(atob(file.content.replace(/\s/g, '')), character => character.charCodeAt(0)));
+  }
+  async function writeFile(path, text, existing) {
+    const content = btoa(Array.from(new TextEncoder().encode(text), byte => String.fromCharCode(byte)).join(''));
+    const body = { message: 'Update Province calendar from editor: ' + path, branch: 'main', content };
+    if (existing) body.sha = existing.sha;
+    const result = await githubFile(path, { method: 'PUT', body: JSON.stringify(body) });
+    if (!result.commit || typeof result.commit.sha !== 'string') throw new Error('Save not confirmed');
+  }
+  function feedEvents(content) {
+    // Preserve the last publication time when this Court's events have not changed.
+    return content.replace(/\r\n/g, '\n').replace(/^(DTSTAMP|LAST-MODIFIED):[^\n]*\n/gm, '');
   }
   async function publish() {
     if (busy) return;
@@ -232,6 +259,7 @@ function createPublisher({ ui, getSchedule, saveDraft }) {
     const schedule = getSchedule();
     if (!schedule || !saveDraft(schedule)) return;
     busy = true;
+    let feedsSaved = 0;
     updateButton();
     try {
       clearTimeout(timer);
@@ -243,18 +271,27 @@ function createPublisher({ ui, getSchedule, saveDraft }) {
       ui.resultLink.textContent = 'Open live calendar ↗';
       status(ui.repository, 'busy', 'Saving your programme directly to GitHub…');
       status(ui.deployment, 'idle', 'Waiting for the repository save to finish.');
-      const existing = await githubFile();
+      const existing = await githubFile('calendar-data.js');
       if (typeof existing.sha !== 'string' || !existing.sha) throw new Error('File not confirmed');
+      const previous = parseSchedule(decodeFile(existing));
+      const generatedAt = new Date().toISOString();
+      const feeds = CourtCalendars.buildFeeds(schedule, generatedAt, previous);
+      for (let i = 0; i < feeds.length; i++) {
+        const feed = feeds[i];
+        status(ui.repository, 'busy', `Saving Court subscriptions — ${i + 1} of ${feeds.length}…`);
+        const old = await githubFile(feed.path, {}, true);
+        const oldContent = old ? decodeFile(old) : '';
+        if (old && feedEvents(oldContent) === feedEvents(feed.content)) {
+          feed.content = oldContent;
+          continue;
+        }
+        await writeFile(feed.path, feed.content, old);
+        feedsSaved++;
+      }
+      status(ui.repository, 'busy', 'Court subscriptions saved. Saving the programme…');
       const programme = 'window.PROVINCE_SCHEDULE=' + JSON.stringify(schedule) + ';';
-      const content = btoa(Array.from(new TextEncoder().encode(programme), byte => String.fromCharCode(byte)).join(''));
-      const result = await githubFile({
-        method: 'PUT',
-        body: JSON.stringify({
-          message: 'Update Province calendar from editor', branch: 'main', sha: existing.sha, content
-        })
-      });
-      if (!result.commit || typeof result.commit.sha !== 'string') throw new Error('Save not confirmed');
-      pending = { schedule, savedAt: new Date().toISOString(), liveVerifiedAt: null };
+      await writeFile('calendar-data.js', programme, existing);
+      pending = { schedule, feeds, savedAt: new Date().toISOString(), liveVerifiedAt: null };
       rememberPublication();
       savedMessage(pending);
       monitor();
@@ -270,7 +307,7 @@ function createPublisher({ ui, getSchedule, saveDraft }) {
         ? 'The repository changed during this save. Check your programme and try publishing again.'
         : error.status === 401 ? 'Please connect again with a valid token.'
         : 'The save could not be confirmed. Check your connection and retry.';
-      status(ui.repository, 'error', 'Publish failed. ' + reason + ' Your draft is still saved.');
+      status(ui.repository, 'error', 'Publish failed. ' + reason + (feedsSaved ? ' Some subscription files were saved; publish again to complete the programme and all subscriptions.' : '') + ' Your draft is still saved.');
       status(ui.deployment, 'idle', 'No new live update has been confirmed.');
     } finally { busy = false; updateButton(); }
   }
@@ -453,3 +490,4 @@ void publisher.init();
 void loadSchedule();
 
 </script></body></html>
+

@@ -1,0 +1,54 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Province of Greece//Court Calendar//EN
+CALSCALE:GREGORIAN
+X-WR-CALNAME:Athelstan Court Sophia No. 193
+X-WR-CALDESC:Court dates published by the Province of Greece. Updates are r
+ efreshed by your calendar provider.
+X-WR-TIMEZONE:Europe/Athens
+BEGIN:VEVENT
+UID:court-193-20261001-1@athelstan-province-greece
+DTSTAMP:20260913T102307Z
+LAST-MODIFIED:20260913T102307Z
+DTSTART;VALUE=DATE:20261001
+DTEND;VALUE=DATE:20261002
+SUMMARY:Athelstan Court Sophia No. 193
+LOCATION:Piraeus
+DESCRIPTION:Province of Greece — Works of the Court\nMeeting type: Meetin
+ g\nLanguage: Greek\nPublished programme: https://dskiad.github.io/ATHELSTA
+ N-PROV-CALENDAR/
+URL:https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:court-193-20261105-1@athelstan-province-greece
+DTSTAMP:20260913T102307Z
+LAST-MODIFIED:20260913T102307Z
+DTSTART;VALUE=DATE:20261105
+DTEND;VALUE=DATE:20261106
+SUMMARY:Athelstan Court Sophia No. 193
+LOCATION:Piraeus
+DESCRIPTION:Province of Greece — Works of the Court\nMeeting type: Meetin
+ g\nLanguage: Greek\nPublished programme: https://dskiad.github.io/ATHELSTA
+ N-PROV-CALENDAR/
+URL:https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:court-193-20270107-1@athelstan-province-greece
+DTSTAMP:20260913T102307Z
+LAST-MODIFIED:20260913T102307Z
+DTSTART;VALUE=DATE:20270107
+DTEND;VALUE=DATE:20270108
+SUMMARY:Athelstan Court Sophia No. 193
+LOCATION:Piraeus
+DESCRIPTION:Province of Greece — Works of the Court\nMeeting type: Instal
+ lation\nLanguage: Greek\nPublished programme: https://dskiad.github.io/ATH
+ ELSTAN-PROV-CALENDAR/
+URL:https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

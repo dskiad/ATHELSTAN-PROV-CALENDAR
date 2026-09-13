@@ -35,20 +35,33 @@ select:focus-visible{outline:3px solid #8c241a;outline-offset:3px}
 @media(min-width:481px) and (max-width:767px){.head{grid-template-columns:minmax(0,1fr) minmax(0,4fr) minmax(0,.85fr)}.work{padding:1rem}}
 @media(prefers-reduced-motion:no-preference){select{transition:background-color .15s ease}}
 @media print{.finder{display:none}.page{max-width:none}.work{break-inside:avoid}}
-</style></head><body><main class="page"><header class="head"><div class="picture emblem" id="emblem">Province emblem</div><div class="title"><h1>PROVINCE OF GREECE</h1><h2>PROV. GRAND MASTER</h2><div class="name">RW. Bro. Ioannis Benetatos, KCAG</div><div class="calendar">calendar</div></div><div class="picture" id="portrait">Portrait</div></header><section class="finder"><label for="courtFilter">Βρες ημερομηνίες της Αυλής σου:<span>Find the dates of your Court:</span></label><select id="courtFilter"><option value="">Όλες οι Αυλές</option></select></section><div class="bar"><strong>Works of the Court</strong></div><div class="headers"><span>Month</span><span>Language</span><span>Court</span><span>City</span><span>Date</span><span>Day</span><span>Meeting Type</span></div><div id="months"></div></main><script>
-(async()=>{try {
-const response=await fetch("calendar-data.js?updated="+Date.now(),{cache:"no-store"});
-if(!response.ok)throw new Error("Calendar download failed");
-const raw=await response.text();
-const match=raw.match(/^\s*window\.PROVINCE_SCHEDULE\s*=\s*([\s\S]*?)\s*;?\s*$/);
-if(!match)throw new Error("Invalid calendar format");
-const published=JSON.parse(match[1]);
-if(!Array.isArray(published))throw new Error("No published programme");
-const courts=[['Homer No. 194','Athens','English','🇬🇧'],['Northern Paladins No. 198','Thessaloniki','English','🇬🇧'],['Rosa Rhodensis No. 192','Rodos','English','🇬🇧'],['Sectio Aurea No. 125','Piraeus','Greek','🇬🇷'],['Frank Hastings No. 195','Zakynthos','English','🇬🇧'],['Sophia No. 193','Piraeus','Greek','🇬🇷'],['William Cartwright No. 196','Corfu','Greek','🇬🇷']];const all=published;let groups={};all.forEach(x=>(groups[x[0]]??=[]).push(x));for(const [month,works] of Object.entries(groups)){let s=document.createElement('section');s.className='month';s.dataset.month=month;works.forEach((x,i)=>{let c=courts.find(q=>q[0]===x[1])||courts[0],date=new Date(x[3]+'T12:00'),r=document.createElement('div');r.dataset.month=date.toLocaleDateString('en-GB',{month:'long',year:'numeric'});r.className='work '+(x[4]==='Installation'?'installation':'');r.innerHTML=`<div class="monthLabel">${i?'' : month}</div><div class="flag" title="${c[2]}">${c[3]}</div><div>${x[1]}</div><div class="city">${x[2]}</div><div class="date">${date.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}</div><div class="day">${date.toLocaleDateString('en-GB',{weekday:'long'})}</div><div class="type">${x[4]}</div>`;s.append(r)});months.append(s)}const picker=document.querySelector("#courtFilter");courts.forEach(c=>picker.add(new Option(c[0]+" — "+c[1],c[0])));picker.onchange=()=>document.querySelectorAll(".month").forEach(m=>{let any=false;m.querySelectorAll(".work").forEach(w=>{let visible=!picker.value||w.children[2].textContent===picker.value;w.style.display=visible?"grid":"none";any||=visible});m.style.display=any?"block":"none"});picker.addEventListener("change",()=>document.querySelectorAll(".month").forEach(m=>{let first=true;m.querySelectorAll(".work").forEach(w=>{if(w.style.display!=="none"){w.children[0].textContent=picker.value?w.dataset.month:(first?m.dataset.month:"");first=false}})}));
-} catch(error) {
- const area=document.getElementById("months");
- area.textContent="The published calendar could not be loaded. Please reload this page.";
- area.setAttribute("role","alert");
-}
-})();
-</script></body></html>
+
+[hidden]{display:none!important}
+.court-sync{margin:0 0 1rem;padding:1rem;border:1px solid #8b633e;border-radius:.4rem;background:#fff9e9b3;font-size:1rem;line-height:1.5}
+.sync-summary{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:.75rem}.sync-summary>div{min-width:0}.sync-summary p{margin:.25rem 0 0}
+.sync-actions{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}.court-sync button,.court-sync a.calendar-button{display:inline-flex;align-items:center;justify-content:center;min-height:2.75rem;padding:.65rem 1rem;border:1px solid #1a4b99;border-radius:.3rem;background:#fff;color:#164785;font:700 1rem Arial,sans-serif;text-decoration:none;cursor:pointer}
+.court-sync button.google-button{background:#164785;color:white}.court-sync :is(a,button,input,summary):focus-visible{outline:3px solid #8c241a;outline-offset:3px}
+.court-sync input{display:block;width:100%;min-width:0;min-height:2.75rem;margin:.4rem 0 .75rem;padding:.65rem;border:1px solid #8b633e;border-radius:.25rem;background:#fff;font:1rem Arial,sans-serif;color:#17130f}
+.court-sync ol{padding-left:1.5rem}.court-sync li{margin:.5rem 0}.court-sync details{margin-top:1rem}.court-sync summary{min-height:2.75rem;display:list-item;align-content:center;cursor:pointer;font-weight:700}.court-sync ul{padding-left:1.25rem}.court-sync ul a{display:inline-flex;align-items:center;min-height:2.75rem;color:#164785;font-weight:700}.sync-help{margin-top:1rem;border-top:1px solid #8b633e;padding-top:.5rem}.sync-status{min-height:1.5em;margin:.5rem 0 0;overflow-wrap:anywhere}
+@media(max-width:480px){.court-sync{padding:.75rem}.sync-summary>button{width:100%}.sync-actions>*{flex:1 1 12rem}}
+@media print{.court-sync{display:none}}
+</style></head><body><main class="page"><header class="head"><div class="picture emblem" id="emblem">Province emblem</div><div class="title"><h1>PROVINCE OF GREECE</h1><h2>PROV. GRAND MASTER</h2><div class="name">RW. Bro. Ioannis Benetatos, KCAG</div><div class="calendar">calendar</div></div><div class="picture" id="portrait">Portrait</div></header><section class="finder"><label for="courtFilter">Βρες ημερομηνίες της Αυλής σου:<span>Find the dates of your Court:</span></label><select id="courtFilter"><option value="">Όλες οι Αυλές</option></select></section><section id="courtSubscription" class="court-sync" aria-labelledby="subscriptionCourt" hidden>
+  <div class="sync-summary">
+    <div><strong id="subscriptionCourt"></strong><p id="subscriptionCount"></p></div>
+    <button type="button" id="showGoogleCalendar" class="google-button" aria-expanded="false" aria-controls="subscriptionHelp">Google Calendar</button>
+  </div>
+  <div id="subscriptionHelp" class="sync-help" hidden>
+    <p><strong>Keep your Court dates in Google Calendar.</strong> Subscribe once using a computer web browser, then view the calendar on your phone or tablet with the same Google account.</p>
+    <ol>
+      <li>Copy the calendar link below.</li>
+      <li>Open Google Calendar and choose the Google account you want to use.</li>
+      <li>Beside <strong>Other calendars</strong>, choose <strong>+ → From URL</strong>, paste the link, then click <strong>Add calendar</strong>.</li>
+    </ol>
+    <label for="subscriptionUrl"><strong>Your Court’s calendar link</strong></label>
+    <input id="subscriptionUrl" type="url" readonly aria-describedby="subscriptionStatus">
+    <div class="sync-actions"><button type="button" id="copySubscription">Copy calendar link</button><a class="calendar-button" href="https://calendar.google.com/" target="_blank" rel="noopener noreferrer">Open Google Calendar ↗</a></div>
+    <p id="subscriptionStatus" class="sync-status" role="status" aria-live="polite"></p>
+    <p>Published changes will appear when Google refreshes this subscription; updates may be delayed. You can unsubscribe in Google Calendar at any time.</p>
+    <details id="individualDates"><summary>Add individual dates on this device</summary><p>These links open ready-filled all-day events. Check your Google account and click <strong>Save</strong> for each date. These are one-time copies and will not receive programme changes.</p><ul id="individualEvents"></ul></details>
+  </div>
+</section><div class="bar"><strong>Works of the Court</strong></div><div class="headers"><span>Month</span><span>Language</span><span>Court</span><span>City</span><span>Date</span><span>Day</span><span>Meeting Type</span></div><div id="months"></div></main><script src="calendar-subscriptions.js?v=1"></script><script src="calendar-page.js?v=1"></script></body></html>
