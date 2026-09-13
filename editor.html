@@ -16,22 +16,46 @@ button:focus-visible,a:focus-visible,label.file:focus-within{outline:3px solid v
 .draft-status{margin:12px 0;font-size:.95rem;color:#655a48}.draft-status[data-state=error]{color:#911318}
 .image-box label.file input{display:block;position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
 @media(max-width:800px){.status-list{grid-template-columns:1fr}.publication{padding:14px}}
-</style></head><body><main class="wrap"><header class="top"><div><h1>Province of Greece — Calendar Editor</h1><div class="hint">Edit the Court works, publish to GitHub, and follow the status below until the live update is confirmed.</div></div><nav class="actions"><button class="primary" id="save">Save draft</button><button class="primary" id="publish">Sign in & Publish to GitHub</button><a id="resultLink" href="https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/index.html" target="_blank" rel="noopener noreferrer">Open live calendar ↗</a></nav></header>
+
+.connection{border:2px solid var(--gold)}
+.connection p,.connection-steps{max-width:65ch;overflow-wrap:anywhere}
+.connection-steps{padding-left:1.5rem}.connection-steps li{margin:.8rem 0}
+.connection a{display:inline-block;max-width:100%;min-height:44px}
+.connection label{display:block;font-weight:700;margin-bottom:.4rem}
+.connection input{max-width:40rem;min-height:44px;font-size:1rem}
+</style></head><body><main class="wrap"><header class="top"><div><h1>Province of Greece — Calendar Editor</h1><div class="hint">Connect GitHub, edit the Court works, and publish. Follow the status below until the live update is confirmed.</div></div><nav class="actions"><button class="primary" id="save">Save draft</button><button class="primary" id="publish">Connect GitHub</button><a id="resultLink" href="https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/index.html" target="_blank" rel="noopener noreferrer">Open live calendar ↗</a></nav></header>
 <section class="publication" aria-labelledby="publicationTitle">
   <h2 id="publicationTitle">Publication status</h2>
   <ol class="status-list">
-    <li><strong>1. GitHub sign-in</strong><p id="signinStatus" role="status" aria-live="polite" aria-atomic="true" data-state="idle">Sign in to publish your changes.</p></li>
+    <li><strong>1. GitHub connection</strong><p id="signinStatus" role="status" aria-live="polite" aria-atomic="true" data-state="idle">Connect GitHub to publish your changes.</p></li>
     <li><strong>2. Save to the repository</strong><p id="repositoryStatus" role="status" aria-live="polite" aria-atomic="true" data-state="idle">No programme published from this tab yet.</p></li>
     <li><strong>3. Live calendar</strong><p id="deploymentStatus" role="status" aria-live="polite" aria-atomic="true" data-state="idle">After saving, the editor checks when your programme appears on the live page.</p></li>
   </ol>
-  <div class="actions"><button id="checkDeployment" hidden>Check live update again</button><a id="repositoryLink" href="https://github.com/dskiad/ATHELSTAN-PROV-CALENDAR/blob/main/calendar-data.js" target="_blank" rel="noopener noreferrer" hidden>View saved programme in GitHub ↗</a><button id="signout" hidden>Sign out of editor</button></div>
+  <div class="actions"><button id="checkDeployment" hidden>Check live update again</button><a id="repositoryLink" href="https://github.com/dskiad/ATHELSTAN-PROV-CALENDAR/blob/main/calendar-data.js" target="_blank" rel="noopener noreferrer" hidden>View saved programme in GitHub ↗</a><button id="signout" hidden>Disconnect GitHub</button></div>
+</section>
+
+<section id="githubConnection" class="publication connection" aria-labelledby="connectionTitle" hidden>
+  <h2 id="connectionTitle">Connect directly to GitHub</h2>
+  <p>Create a token once, then use it here to publish your calendar. Your browser sends the token directly to GitHub and keeps it in this tab until you disconnect or close the tab.</p>
+  <ol class="connection-steps">
+    <li>Open <a id="createGithubToken" href="https://github.com/settings/personal-access-tokens/new?name=Province%20Calendar&amp;description=Publish%20Court%20dates&amp;target_name=dskiad&amp;expires_in=90&amp;contents=write" target="_blank" rel="noopener noreferrer">Create a GitHub token ↗</a> and sign in to <strong>dskiad</strong>.</li>
+    <li>For <strong>Repository access</strong>, choose <strong>Only select repositories</strong> → <strong>ATHELSTAN-PROV-CALENDAR</strong>.</li>
+    <li>Under repository permissions, confirm <strong>Contents: Read and write</strong>, then click <strong>Generate token</strong>.</li>
+    <li>Copy the token and paste it into the field below.</li>
+  </ol>
+  <form id="githubConnectForm">
+    <label for="githubToken">GitHub access token</label>
+    <input id="githubToken" type="password" autocomplete="off" autocapitalize="none" spellcheck="false" required aria-describedby="tokenHelp">
+    <p id="tokenHelp" class="hint">Enter the token here in the editor. Treat it like a password.</p>
+    <div class="actions"><button id="connectGithub" class="primary" type="submit">Connect securely</button><button id="cancelConnection" type="button">Cancel</button></div>
+  </form>
 </section>
 <p id="draftStatus" class="draft-status" role="status" aria-live="polite" aria-atomic="true">Loading the programme…</p>
 <section class="images"><div class="image-box"><strong>Left image — Province emblem</strong><div class="preview" id="emblemPreview">No emblem selected</div><label class="file">Upload left image<input id="emblem" type="file" accept="image/*"></label></div><div class="image-box"><strong>Right image — Provincial Grand Master</strong><div class="preview" id="portraitPreview">No portrait selected</div><label class="file">Upload right image<input id="portrait" type="file" accept="image/*"></label></div></section><section class="rows"><div class="row"><span>Month</span><span>Court</span><span>City</span><span>Date</span><span>Meeting type</span><span></span></div><div id="list"></div></section><button class="add" id="add">+ Add work</button></main><script>
 const courts=[['Homer No. 194','Athens','English','🇬🇧'],['Northern Paladins No. 198','Thessaloniki','English','🇬🇧'],['Rosa Rhodensis No. 192','Rodos','English','🇬🇧'],['Sectio Aurea No. 125','Piraeus','Greek','🇬🇷'],['Frank Hastings No. 195','Zakynthos','English','🇬🇧'],['Sophia No. 193','Piraeus','Greek','🇬🇷'],['William Cartwright No. 196','Corfu','Greek','🇬🇷']], cities=[...new Set(courts.map(x=>x[1]))],types=['Meeting','Installation','Annual Meeting','Emergency Meeting'];
-// The service confirms the repository save; the public data confirms the live update.
+// GitHub confirms the repository save; the public data confirms the live update.
 function createPublisher({ ui, getSchedule, saveDraft }) {
-  const service = 'https://province-greece-calendar.dskiad.chatgpt.site';
+  const repository = 'https://api.github.com/repos/dskiad/ATHELSTAN-PROV-CALENDAR';
   const live = 'https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/';
   const tokenKey = 'provinceGithubToken';
   const publicationKey = 'provinceLastPublication';
@@ -63,8 +87,9 @@ function createPublisher({ ui, getSchedule, saveDraft }) {
     ui.publish.disabled = busy;
     ui.signout.hidden = !token;
     ui.signout.disabled = busy;
+    ui.connect.disabled = busy;
     ui.publish.textContent = busy ? 'Please wait…' : signedIn
-      ? 'Publish changes to GitHub' : token ? 'Retry sign-in check' : 'Sign in & Publish to GitHub';
+      ? 'Publish changes to GitHub' : token ? 'Retry GitHub connection' : 'Connect GitHub';
   }
   async function request(url, options = {}) {
     const controller = new AbortController();
@@ -94,18 +119,18 @@ function createPublisher({ ui, getSchedule, saveDraft }) {
       });
       if (response.status === 401) {
         forgetToken();
-        status(ui.signin, 'error', 'Sign-in has expired or was revoked. Please sign in again.');
+        status(ui.signin, 'error', 'Your GitHub connection has expired or was revoked. Connect again with a valid token.');
         return false;
       }
       if (!response.ok) throw new Error('Sign-in check failed');
       const account = await response.json();
       if (typeof account.login !== 'string' || !account.login) throw new Error('No account');
       signedIn = true;
-      status(ui.signin, 'success', `✓ Sign-in successful — ${account.login}. Confirmed ${time()}. You can now publish your changes.`);
+      status(ui.signin, 'success', `✓ GitHub connected — ${account.login}. Confirmed ${time()}. You can now publish your changes.`);
       return true;
     } catch {
       signedIn = false;
-      status(ui.signin, 'error', 'Your GitHub sign-in could not be verified. Check your connection and click Retry sign-in check.');
+      status(ui.signin, 'error', 'GitHub could not verify this connection. Check your internet connection and click Retry GitHub connection.');
       return false;
     } finally { updateButton(); }
   }
@@ -155,22 +180,60 @@ function createPublisher({ ui, getSchedule, saveDraft }) {
     void checkLive(pending, version);
   }
 
-  async function publish() {
+  function showConnection() {
+    ui.connection.hidden = false;
+    ui.tokenInput.focus();
+  }
+  async function connect() {
     if (busy) return;
-    const schedule = getSchedule();
-    if (!schedule || !saveDraft(schedule)) return;
-    if (!token) {
-      busy = true;
-      updateButton();
-      status(ui.signin, 'busy', 'Opening GitHub sign-in… Your draft is saved and will be here when you return.');
-      location.assign(service + '/auth/github');
+    const entered = ui.tokenInput.value.trim();
+    if (!entered || /\s/.test(entered)) {
+      status(ui.signin, 'error', 'Paste the complete GitHub token into the connection field.');
+      ui.tokenInput.focus();
       return;
     }
+    writeSession(tokenKey, null);
+    token = entered;
+    signedIn = false;
+    ui.tokenInput.value = '';
     busy = true;
     updateButton();
     try {
-      if (!signedIn && !await verifySignIn()) return;
-      // Stop any older live check before starting a new publication.
+      if (await verifySignIn()) {
+        writeSession(tokenKey, token);
+        ui.connection.hidden = true;
+        ui.publish.focus();
+      }
+    } finally { busy = false; updateButton(); }
+  }
+  async function githubFile(options = {}) {
+    const response = await request(repository + '/contents/calendar-data.js' + (options.method ? '' : '?ref=main'), {
+      ...options,
+      headers: { Accept: 'application/vnd.github+json', Authorization: 'Bearer ' + token,
+        ...(options.method ? { 'Content-Type': 'application/json' } : {}) }
+    });
+    if (!response.ok) {
+      const error = new Error('GitHub request failed');
+      error.status = response.status;
+      throw error;
+    }
+    return response.json();
+  }
+  async function publish() {
+    if (busy) return;
+    if (!token) { showConnection(); return; }
+    if (!signedIn) {
+      busy = true;
+      updateButton();
+      try { if (await verifySignIn()) writeSession(tokenKey, token); }
+      finally { busy = false; updateButton(); }
+      return;
+    }
+    const schedule = getSchedule();
+    if (!schedule || !saveDraft(schedule)) return;
+    busy = true;
+    updateButton();
+    try {
       clearTimeout(timer);
       ++monitorVersion;
       pending = null;
@@ -178,39 +241,38 @@ function createPublisher({ ui, getSchedule, saveDraft }) {
       ui.check.hidden = true;
       ui.repositoryLink.hidden = true;
       ui.resultLink.textContent = 'Open live calendar ↗';
-      status(ui.repository, 'busy', 'Saving your programme to GitHub…');
+      status(ui.repository, 'busy', 'Saving your programme directly to GitHub…');
       status(ui.deployment, 'idle', 'Waiting for the repository save to finish.');
-      const response = await request(service + '/api/publish', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
-        body: JSON.stringify({ schedule })
+      const existing = await githubFile();
+      if (typeof existing.sha !== 'string' || !existing.sha) throw new Error('File not confirmed');
+      const programme = 'window.PROVINCE_SCHEDULE=' + JSON.stringify(schedule) + ';';
+      const content = btoa(Array.from(new TextEncoder().encode(programme), byte => String.fromCharCode(byte)).join(''));
+      const result = await githubFile({
+        method: 'PUT',
+        body: JSON.stringify({
+          message: 'Update Province calendar from editor', branch: 'main', sha: existing.sha, content
+        })
       });
-      if (!response.ok) {
-        if (response.status === 401) {
-          forgetToken();
-          status(ui.signin, 'error', 'Sign-in has expired. Please sign in again.');
-        }
-        const reason = response.status === 403 ? 'GitHub refused write access. Sign in with an account allowed to update this repository.'
-          : response.status === 409 ? 'The repository changed during this save. Please try publishing again.'
-          : response.status === 401 ? 'Please sign in again and retry.'
-          : `The publishing service returned an error (${response.status}). Please try again.`;
-        status(ui.repository, 'error', 'Publish failed. ' + reason + ' Your draft is still saved.');
-        status(ui.deployment, 'idle', 'No new live update has been confirmed.');
-        return;
-      }
-      const result = await response.json();
-      if (result.ok !== true) throw new Error('Save not confirmed');
+      if (!result.commit || typeof result.commit.sha !== 'string') throw new Error('Save not confirmed');
       pending = { schedule, savedAt: new Date().toISOString(), liveVerifiedAt: null };
       rememberPublication();
       savedMessage(pending);
       monitor();
-    } catch {
-      status(ui.repository, 'error', 'The save could not be confirmed. Check your connection and retry. Your draft is still saved.');
+    } catch (error) {
+      if (error.status === 401) {
+        forgetToken();
+        showConnection();
+        status(ui.signin, 'error', 'Your GitHub connection has expired. Please connect again.');
+      }
+      const reason = error.status === 403 || error.status === 404
+        ? 'Check that your token includes ATHELSTAN-PROV-CALENDAR and Contents: Read and write.'
+        : error.status === 409
+        ? 'The repository changed during this save. Check your programme and try publishing again.'
+        : error.status === 401 ? 'Please connect again with a valid token.'
+        : 'The save could not be confirmed. Check your connection and retry.';
+      status(ui.repository, 'error', 'Publish failed. ' + reason + ' Your draft is still saved.');
       status(ui.deployment, 'idle', 'No new live update has been confirmed.');
-    } finally {
-      busy = false;
-      updateButton();
-    }
+    } finally { busy = false; updateButton(); }
   }
 
   async function init() {
@@ -218,14 +280,8 @@ function createPublisher({ ui, getSchedule, saveDraft }) {
     token = readSession(tokenKey) || '';
     if (callback.has('github_error')) {
       forgetToken();
-      const errors = {
-        state: 'The sign-in session expired. Click Sign in & Publish to GitHub to start again. Your draft is saved.',
-        expired: 'The sign-in code has expired. Start a new sign-in from this editor. Your draft is saved.',
-        cancelled: 'GitHub sign-in was cancelled. You can try again when ready. Your draft is saved.',
-        configuration: 'The GitHub sign-in service needs a configuration update. Your draft is saved.',
-        github_unavailable: 'GitHub sign-in could not finish because the service connection failed. Please try signing in again. Your draft is saved.'
-      };
-      status(ui.signin, 'error', errors[callback.get('github_error')] || 'GitHub sign-in could not finish. Please try again. Your draft is saved.');
+      status(ui.signin, 'error', 'The previous sign-in service could not connect. Use Connect GitHub below to publish directly. Your draft is saved.');
+      showConnection();
       history.replaceState(null, '', location.pathname + location.search);
     } else if (callback.has('github_token')) {
       token = callback.get('github_token') || '';
@@ -252,10 +308,12 @@ function createPublisher({ ui, getSchedule, saveDraft }) {
   }
   ui.publish.onclick = publish;
   ui.check.onclick = monitor;
+  ui.form.onsubmit = event => { event.preventDefault(); return connect(); };
+  ui.cancel.onclick = () => { ui.tokenInput.value = ''; ui.connection.hidden = true; ui.publish.focus(); };
   ui.signout.onclick = () => {
     if (busy) return;
     forgetToken();
-    status(ui.signin, 'idle', 'Signed out of the editor. Sign in again to publish.');
+    status(ui.signin, 'idle', 'Disconnected from GitHub. Connect again when you want to publish.');
     updateButton();
   };
   return { init };
@@ -383,10 +441,14 @@ const publisher = createPublisher({
     publish: document.getElementById('publish'), signin: document.getElementById('signinStatus'),
     repository: document.getElementById('repositoryStatus'), deployment: document.getElementById('deploymentStatus'),
     check: document.getElementById('checkDeployment'), resultLink: document.getElementById('resultLink'),
-    repositoryLink: document.getElementById('repositoryLink'), signout: document.getElementById('signout')
+    repositoryLink: document.getElementById('repositoryLink'), signout: document.getElementById('signout'),
+    connection: document.getElementById('githubConnection'), tokenInput: document.getElementById('githubToken'),
+    connect: document.getElementById('connectGithub'), form: document.getElementById('githubConnectForm'),
+    cancel: document.getElementById('cancelConnection')
   },
   getSchedule: () => collectSchedule(true), saveDraft
 });
+document.getElementById('createGithubToken').onclick = () => saveDraft(collectSchedule());
 void publisher.init();
 void loadSchedule();
 
