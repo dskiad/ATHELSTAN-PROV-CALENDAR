@@ -21,6 +21,8 @@ The editor refreshes the Court subscription files whenever you publish changes. 
 
 The panel also offers **Add individual dates on this device**. These links open a ready-filled Google event that the visitor explicitly saves. These one-time copies do **not** receive later programme changes.
 
+The subscription files request **red** for the calendar and its events using the standard `COLOR:red` property. Calendar apps may ignore this preference. In Google Calendar, choose red for the subscribed Court calendar in your own colour settings. For an individual event, choose red in the event’s colour picker before **Save**; for an already saved event, use **Edit → colour → red → Save**. The Google event-template link does not set the colour, and this website cannot recolour events already in a visitor’s account.
+
 Google's instructions: [Subscribe using a public calendar URL](https://support.google.com/calendar/answer/37100).
 
 ## Connect GitHub
