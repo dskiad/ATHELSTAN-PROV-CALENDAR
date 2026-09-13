@@ -1,6 +1,7 @@
 (function (root) {
   'use strict';
   const base = 'https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/';
+  const website = 'https://moa-greece.gr/';
   const courts = [
     ['Homer No. 194', 'Athens', 'English', '🇬🇧'],
     ['Northern Paladins No. 198', 'Thessaloniki', 'English', '🇬🇧'],
@@ -34,7 +35,7 @@
     // Preserve distinct custom Court names without unsafe path characters.
     return 'court-' + Array.from(new TextEncoder().encode(name.trim().normalize('NFC').toLowerCase()), byte => byte.toString(16).padStart(2, '0')).join('');
   }
-  function title(name) { return 'Athelstan Court ' + name; }
+  function title(name) { return 'ATHELSTAN Court ' + name; }
   function feedPath(name) { return 'calendars/' + courtKey(name) + '.ics'; }
   function feedUrl(name) { return base + feedPath(name); }
   function selected(schedule, name) {
@@ -72,7 +73,7 @@
   function details(row) {
     const court = courts.find(court => courtKey(court[0]) === courtKey(row[1]));
     return ['Province of Greece — Works of the Court', 'Meeting type: ' + row[4],
-      court ? 'Language: ' + court[2] : '', 'Published programme: ' + base].filter(Boolean).join('\n');
+      court ? 'Language: ' + court[2] : '', 'Website: ' + website, 'Published programme: ' + base].filter(Boolean).join('\n');
   }
   function calendar(schedule, name, modifiedAt) {
     const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Province of Greece//Court Calendar//EN',
@@ -90,7 +91,7 @@
         'DTSTART;VALUE=DATE:' + row[3].replace(/-/g, ''),
         'DTEND;VALUE=DATE:' + nextDay(row[3]).replace(/-/g, ''),
         'SUMMARY:' + escapeText(title(row[1])), 'LOCATION:' + escapeText(row[2]),
-        'DESCRIPTION:' + escapeText(details(row)), 'URL:' + base,
+        'DESCRIPTION:' + escapeText(details(row)), 'URL:' + website,
         'STATUS:CONFIRMED', 'TRANSP:TRANSPARENT', 'END:VEVENT');
     }
     lines.push('END:VCALENDAR');

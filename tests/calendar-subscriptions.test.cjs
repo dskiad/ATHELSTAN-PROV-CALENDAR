@@ -16,8 +16,10 @@ test('every published Court date appears only in its Court feed', () => {
     const actual = events(feed.content);
     assert.equal(actual.length, expected.length);
     expected.forEach((row, i) => {
-      assert.ok(actual[i].includes('SUMMARY:Athelstan Court ' + name + '\r\n'));
+      assert.ok(actual[i].includes('SUMMARY:ATHELSTAN Court ' + name + '\r\n'));
       assert.ok(actual[i].includes('LOCATION:' + row[2] + '\r\n'));
+      assert.ok(actual[i].includes('URL:https://moa-greece.gr/\r\n'));
+      assert.ok(actual[i].replace(/\r\n /g, '').includes('Website: https://moa-greece.gr/'));
       assert.ok(actual[i].includes('DTSTART;VALUE=DATE:' + row[3].replace(/-/g, '') + '\r\n'));
     });
   }
@@ -76,10 +78,11 @@ test('individual Google event links contain the selected Court, all-day dates, a
   const row = ['', 'Sophia No. 193', 'Πειραιάς', '2027-01-07', 'Installation'];
   const link = new URL(calendars.googleEventUrl(row));
   assert.equal(link.origin, 'https://calendar.google.com');
-  assert.equal(link.searchParams.get('text'), 'Athelstan Court Sophia No. 193');
+  assert.equal(link.searchParams.get('text'), 'ATHELSTAN Court Sophia No. 193');
   assert.equal(link.searchParams.get('dates'), '20270107/20270108');
   assert.equal(link.searchParams.get('location'), 'Πειραιάς');
   assert.match(link.searchParams.get('details'), /Installation/);
+  assert.ok(link.searchParams.get('details').includes('Website: https://moa-greece.gr/'));
 });
 test('Court subscription URLs are permanent public HTTPS links', () => {
   assert.equal(calendars.feedUrl('Sophia No. 193'), 'https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/calendars/court-193.ics');

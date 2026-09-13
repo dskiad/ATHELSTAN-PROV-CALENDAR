@@ -5,7 +5,8 @@ const path = require('node:path');
 const calendars = require('../calendar-subscriptions.js');
 const root = path.resolve(__dirname, '..');
 const schedule = calendars.parseSchedule(fs.readFileSync(path.join(root, 'calendar-data.js'), 'utf8'));
-const modifiedAt = fs.statSync(path.join(root, 'calendar-data.js')).mtime.toISOString();
+const modifiedAt = new Date(Math.max(...['calendar-data.js', 'calendar-subscriptions.js']
+  .map(file => fs.statSync(path.join(root, file)).mtimeMs))).toISOString();
 const directory = path.join(root, 'calendars');
 fs.mkdirSync(directory, { recursive: true });
 const feeds = calendars.buildFeeds(schedule, modifiedAt);

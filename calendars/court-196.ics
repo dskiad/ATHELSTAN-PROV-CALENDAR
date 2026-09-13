@@ -2,52 +2,52 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Province of Greece//Court Calendar//EN
 CALSCALE:GREGORIAN
-X-WR-CALNAME:Athelstan Court William Cartwright No. 196
+X-WR-CALNAME:ATHELSTAN Court William Cartwright No. 196
 X-WR-CALDESC:Court dates published by the Province of Greece. Updates are r
  efreshed by your calendar provider.
 X-WR-TIMEZONE:Europe/Athens
 BEGIN:VEVENT
 UID:court-196-20261112-1@athelstan-province-greece
-DTSTAMP:20260913T102307Z
-LAST-MODIFIED:20260913T102307Z
+DTSTAMP:20260913T120110Z
+LAST-MODIFIED:20260913T120110Z
 DTSTART;VALUE=DATE:20261112
 DTEND;VALUE=DATE:20261113
-SUMMARY:Athelstan Court William Cartwright No. 196
+SUMMARY:ATHELSTAN Court William Cartwright No. 196
 LOCATION:Corfu
 DESCRIPTION:Province of Greece — Works of the Court\nMeeting type: Meetin
- g\nLanguage: Greek\nPublished programme: https://dskiad.github.io/ATHELSTA
- N-PROV-CALENDAR/
-URL:https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
+ g\nLanguage: Greek\nWebsite: https://moa-greece.gr/\nPublished programme: 
+ https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
+URL:https://moa-greece.gr/
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
 UID:court-196-20270211-1@athelstan-province-greece
-DTSTAMP:20260913T102307Z
-LAST-MODIFIED:20260913T102307Z
+DTSTAMP:20260913T120110Z
+LAST-MODIFIED:20260913T120110Z
 DTSTART;VALUE=DATE:20270211
 DTEND;VALUE=DATE:20270212
-SUMMARY:Athelstan Court William Cartwright No. 196
+SUMMARY:ATHELSTAN Court William Cartwright No. 196
 LOCATION:Corfu
 DESCRIPTION:Province of Greece — Works of the Court\nMeeting type: Meetin
- g\nLanguage: Greek\nPublished programme: https://dskiad.github.io/ATHELSTA
- N-PROV-CALENDAR/
-URL:https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
+ g\nLanguage: Greek\nWebsite: https://moa-greece.gr/\nPublished programme: 
+ https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
+URL:https://moa-greece.gr/
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
 UID:court-196-20270311-1@athelstan-province-greece
-DTSTAMP:20260913T102307Z
-LAST-MODIFIED:20260913T102307Z
+DTSTAMP:20260913T120110Z
+LAST-MODIFIED:20260913T120110Z
 DTSTART;VALUE=DATE:20270311
 DTEND;VALUE=DATE:20270312
-SUMMARY:Athelstan Court William Cartwright No. 196
+SUMMARY:ATHELSTAN Court William Cartwright No. 196
 LOCATION:Corfu
 DESCRIPTION:Province of Greece — Works of the Court\nMeeting type: Instal
- lation\nLanguage: Greek\nPublished programme: https://dskiad.github.io/ATH
- ELSTAN-PROV-CALENDAR/
-URL:https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
+ lation\nLanguage: Greek\nWebsite: https://moa-greece.gr/\nPublished progra
+ mme: https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
+URL:https://moa-greece.gr/
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
