@@ -11,11 +11,27 @@ Responsive two-page calendar: `editor.html` for editing and `index.html` for the
 ## How to publish changes
 
 1. Open the editor using the link above.
-2. Edit the programme and click **Save changes** to keep your browser-local draft.
-3. Click **Sign in & Publish to GitHub** and authorise GitHub if prompted.
-4. After returning to the editor, click **Sign in & Publish to GitHub** again to publish.
-5. On successful publication, the editor opens the result page. Allow GitHub Pages time to deploy, then refresh the live calendar.
+2. Edit the programme. **Save draft** keeps a copy in this browser.
+3. Click **Sign in & Publish to GitHub**. The editor saves your draft before opening GitHub.
+4. When you return, wait for **Sign-in successful**, then click **Publish changes to GitHub**.
+5. Follow the three messages under **Publication status**:
+   - **GitHub sign-in:** confirms your account and shows the confirmation time.
+   - **Save to the repository:** confirms GitHub accepted the programme and shows the save time.
+   - **Live calendar:** checks the public calendar data every 10 seconds. It shows **Live calendar updated** only when the live dates match the programme you published, with the verification time.
+6. Click **Open updated live calendar** when the third message turns green.
 
-**Save changes alone does not publish to other visitors.** The public page uses the published `calendar-data.js` file, not your browser-local draft.
+The editor stays open so you can see the result of publishing. If deployment cannot be confirmed within 10 minutes, use **Check live update again**; you do not need to publish the same programme again. Publication status resumes after a refresh in the same tab.
 
-Never share the sign-in token in the editor's address bar, or paste it into an issue or message. Header-image uploads currently remain local to the editor; the publishing action saves the schedule.
+**Save draft alone does not publish to other visitors.** The public page uses the published `calendar-data.js` file. A fresh editor loads that published programme; an existing browser draft is preserved.
+
+Sign-in credentials are removed from the returned page URL and retained for the current tab session. Never share sign-in credentials. Header-image uploads currently remain local to the editor; publishing saves the schedule.
+
+## Check the publishing status logic
+
+With Node.js installed, run:
+
+```sh
+node --test tests/editor-status.test.cjs
+```
+
+The tests simulate sign-in, successful saves, refused writes, duplicate clicks, delayed deployments, connection failures, and refresh recovery without publishing real calendar changes.
