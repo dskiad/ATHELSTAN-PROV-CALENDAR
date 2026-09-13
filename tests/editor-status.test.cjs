@@ -120,3 +120,14 @@ test('a failed public fetch does not undo the confirmed repository save', async 
   assert.equal(s.ui.deployment.dataset.state, 'busy');
   assert.match(s.ui.deployment.textContent, /could not be checked/);
 });
+
+test('service sign-in failure returns to the editor without reviving an old session', async () => {
+  const s = setup({ hash: '#github_error=github_unavailable', session: { provinceGithubToken: 'old-test-token' } });
+  await s.controller.init();
+  assert.equal(s.ui.signin.dataset.state, 'error');
+  assert.match(s.ui.signin.textContent, /connection failed/);
+  assert.equal(s.values.has('provinceGithubToken'), false);
+  assert.equal(s.location.hash, '');
+  assert.equal(s.requests.length, 0);
+  assert.equal(s.ui.publish.disabled, false);
+});
