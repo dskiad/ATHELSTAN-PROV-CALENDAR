@@ -2,14 +2,15 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Province of Greece//Court Calendar//EN
 CALSCALE:GREGORIAN
+COLOR:red
 X-WR-CALNAME:ATHELSTAN Court Frank Hastings No. 195
 X-WR-CALDESC:Court dates published by the Province of Greece. Updates are r
  efreshed by your calendar provider.
 X-WR-TIMEZONE:Europe/Athens
 BEGIN:VEVENT
 UID:court-195-20260923-1@athelstan-province-greece
-DTSTAMP:20260913T120110Z
-LAST-MODIFIED:20260913T120110Z
+DTSTAMP:20260913T121344Z
+LAST-MODIFIED:20260913T121344Z
 DTSTART;VALUE=DATE:20260923
 DTEND;VALUE=DATE:20260924
 SUMMARY:ATHELSTAN Court Frank Hastings No. 195
@@ -18,13 +19,14 @@ DESCRIPTION:Province of Greece — Works of the Court\nMeeting type: Meetin
  g\nLanguage: English\nWebsite: https://moa-greece.gr/\nPublished programme
  : https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
 URL:https://moa-greece.gr/
+COLOR:red
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
 UID:court-195-20261111-1@athelstan-province-greece
-DTSTAMP:20260913T120110Z
-LAST-MODIFIED:20260913T120110Z
+DTSTAMP:20260913T121344Z
+LAST-MODIFIED:20260913T121344Z
 DTSTART;VALUE=DATE:20261111
 DTEND;VALUE=DATE:20261112
 SUMMARY:ATHELSTAN Court Frank Hastings No. 195
@@ -33,13 +35,14 @@ DESCRIPTION:Province of Greece — Works of the Court\nMeeting type: Meetin
  g\nLanguage: English\nWebsite: https://moa-greece.gr/\nPublished programme
  : https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
 URL:https://moa-greece.gr/
+COLOR:red
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
 UID:court-195-20270210-1@athelstan-province-greece
-DTSTAMP:20260913T120110Z
-LAST-MODIFIED:20260913T120110Z
+DTSTAMP:20260913T121344Z
+LAST-MODIFIED:20260913T121344Z
 DTSTART;VALUE=DATE:20270210
 DTEND;VALUE=DATE:20270211
 SUMMARY:ATHELSTAN Court Frank Hastings No. 195
@@ -48,6 +51,7 @@ DESCRIPTION:Province of Greece — Works of the Court\nMeeting type: Instal
  lation\nLanguage: English\nWebsite: https://moa-greece.gr/\nPublished prog
  ramme: https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
 URL:https://moa-greece.gr/
+COLOR:red
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT

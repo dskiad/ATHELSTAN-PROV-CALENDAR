@@ -2,14 +2,15 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Province of Greece//Court Calendar//EN
 CALSCALE:GREGORIAN
+COLOR:red
 X-WR-CALNAME:ATHELSTAN Court Rosa Rhodensis No. 192
 X-WR-CALDESC:Court dates published by the Province of Greece. Updates are r
  efreshed by your calendar provider.
 X-WR-TIMEZONE:Europe/Athens
 BEGIN:VEVENT
 UID:court-192-20260605-1@athelstan-province-greece
-DTSTAMP:20260913T120110Z
-LAST-MODIFIED:20260913T120110Z
+DTSTAMP:20260913T121344Z
+LAST-MODIFIED:20260913T121344Z
 DTSTART;VALUE=DATE:20260605
 DTEND;VALUE=DATE:20260606
 SUMMARY:ATHELSTAN Court Rosa Rhodensis No. 192
@@ -18,13 +19,14 @@ DESCRIPTION:Province of Greece — Works of the Court\nMeeting type: Meetin
  g\nLanguage: English\nWebsite: https://moa-greece.gr/\nPublished programme
  : https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
 URL:https://moa-greece.gr/
+COLOR:red
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
 UID:court-192-20260703-1@athelstan-province-greece
-DTSTAMP:20260913T120110Z
-LAST-MODIFIED:20260913T120110Z
+DTSTAMP:20260913T121344Z
+LAST-MODIFIED:20260913T121344Z
 DTSTART;VALUE=DATE:20260703
 DTEND;VALUE=DATE:20260704
 SUMMARY:ATHELSTAN Court Rosa Rhodensis No. 192
@@ -33,13 +35,14 @@ DESCRIPTION:Province of Greece — Works of the Court\nMeeting type: Instal
  lation\nLanguage: English\nWebsite: https://moa-greece.gr/\nPublished prog
  ramme: https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
 URL:https://moa-greece.gr/
+COLOR:red
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
 UID:court-192-20260904-1@athelstan-province-greece
-DTSTAMP:20260913T120110Z
-LAST-MODIFIED:20260913T120110Z
+DTSTAMP:20260913T121344Z
+LAST-MODIFIED:20260913T121344Z
 DTSTART;VALUE=DATE:20260904
 DTEND;VALUE=DATE:20260905
 SUMMARY:ATHELSTAN Court Rosa Rhodensis No. 192
@@ -48,13 +51,14 @@ DESCRIPTION:Province of Greece — Works of the Court\nMeeting type: Meetin
  g\nLanguage: English\nWebsite: https://moa-greece.gr/\nPublished programme
  : https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
 URL:https://moa-greece.gr/
+COLOR:red
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
 UID:court-192-20270604-1@athelstan-province-greece
-DTSTAMP:20260913T120110Z
-LAST-MODIFIED:20260913T120110Z
+DTSTAMP:20260913T121344Z
+LAST-MODIFIED:20260913T121344Z
 DTSTART;VALUE=DATE:20270604
 DTEND;VALUE=DATE:20270605
 SUMMARY:ATHELSTAN Court Rosa Rhodensis No. 192
@@ -63,13 +67,14 @@ DESCRIPTION:Province of Greece — Works of the Court\nMeeting type: Meetin
  g\nLanguage: English\nWebsite: https://moa-greece.gr/\nPublished programme
  : https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
 URL:https://moa-greece.gr/
+COLOR:red
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
 UID:court-192-20270702-1@athelstan-province-greece
-DTSTAMP:20260913T120110Z
-LAST-MODIFIED:20260913T120110Z
+DTSTAMP:20260913T121344Z
+LAST-MODIFIED:20260913T121344Z
 DTSTART;VALUE=DATE:20270702
 DTEND;VALUE=DATE:20270703
 SUMMARY:ATHELSTAN Court Rosa Rhodensis No. 192
@@ -78,13 +83,14 @@ DESCRIPTION:Province of Greece — Works of the Court\nMeeting type: Instal
  lation\nLanguage: English\nWebsite: https://moa-greece.gr/\nPublished prog
  ramme: https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
 URL:https://moa-greece.gr/
+COLOR:red
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
 UID:court-192-20270903-1@athelstan-province-greece
-DTSTAMP:20260913T120110Z
-LAST-MODIFIED:20260913T120110Z
+DTSTAMP:20260913T121344Z
+LAST-MODIFIED:20260913T121344Z
 DTSTART;VALUE=DATE:20270903
 DTEND;VALUE=DATE:20270904
 SUMMARY:ATHELSTAN Court Rosa Rhodensis No. 192
@@ -93,6 +99,7 @@ DESCRIPTION:Province of Greece — Works of the Court\nMeeting type: Meetin
  g\nLanguage: English\nWebsite: https://moa-greece.gr/\nPublished programme
  : https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
 URL:https://moa-greece.gr/
+COLOR:red
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT

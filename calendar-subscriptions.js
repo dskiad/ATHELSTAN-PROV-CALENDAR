@@ -76,8 +76,9 @@
       court ? 'Language: ' + court[2] : '', 'Website: ' + website, 'Published programme: ' + base].filter(Boolean).join('\n');
   }
   function calendar(schedule, name, modifiedAt) {
+    // RFC 7986: a preferred CSS named colour; receiving calendars may override it.
     const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Province of Greece//Court Calendar//EN',
-      'CALSCALE:GREGORIAN', 'X-WR-CALNAME:' + escapeText(title(name)),
+      'CALSCALE:GREGORIAN', 'COLOR:red', 'X-WR-CALNAME:' + escapeText(title(name)),
       'X-WR-CALDESC:' + escapeText('Court dates published by the Province of Greece. Updates are refreshed by your calendar provider.'),
       'X-WR-TIMEZONE:Europe/Athens'];
     const occurrences = new Map();
@@ -92,7 +93,7 @@
         'DTEND;VALUE=DATE:' + nextDay(row[3]).replace(/-/g, ''),
         'SUMMARY:' + escapeText(title(row[1])), 'LOCATION:' + escapeText(row[2]),
         'DESCRIPTION:' + escapeText(details(row)), 'URL:' + website,
-        'STATUS:CONFIRMED', 'TRANSP:TRANSPARENT', 'END:VEVENT');
+        'COLOR:red', 'STATUS:CONFIRMED', 'TRANSP:TRANSPARENT', 'END:VEVENT');
     }
     lines.push('END:VCALENDAR');
     return lines.map(fold).join('\r\n') + '\r\n';

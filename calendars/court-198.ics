@@ -2,14 +2,15 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Province of Greece//Court Calendar//EN
 CALSCALE:GREGORIAN
+COLOR:red
 X-WR-CALNAME:ATHELSTAN Court Northern Paladins No. 198
 X-WR-CALDESC:Court dates published by the Province of Greece. Updates are r
  efreshed by your calendar provider.
 X-WR-TIMEZONE:Europe/Athens
 BEGIN:VEVENT
 UID:court-198-20260509-1@athelstan-province-greece
-DTSTAMP:20260913T120110Z
-LAST-MODIFIED:20260913T120110Z
+DTSTAMP:20260913T121344Z
+LAST-MODIFIED:20260913T121344Z
 DTSTART;VALUE=DATE:20260509
 DTEND;VALUE=DATE:20260510
 SUMMARY:ATHELSTAN Court Northern Paladins No. 198
@@ -18,13 +19,14 @@ DESCRIPTION:Province of Greece — Works of the Court\nMeeting type: Instal
  lation\nLanguage: English\nWebsite: https://moa-greece.gr/\nPublished prog
  ramme: https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
 URL:https://moa-greece.gr/
+COLOR:red
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
 UID:court-198-20261114-1@athelstan-province-greece
-DTSTAMP:20260913T120110Z
-LAST-MODIFIED:20260913T120110Z
+DTSTAMP:20260913T121344Z
+LAST-MODIFIED:20260913T121344Z
 DTSTART;VALUE=DATE:20261114
 DTEND;VALUE=DATE:20261115
 SUMMARY:ATHELSTAN Court Northern Paladins No. 198
@@ -33,13 +35,14 @@ DESCRIPTION:Province of Greece — Works of the Court\nMeeting type: Meetin
  g\nLanguage: English\nWebsite: https://moa-greece.gr/\nPublished programme
  : https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
 URL:https://moa-greece.gr/
+COLOR:red
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
 UID:court-198-20270213-1@athelstan-province-greece
-DTSTAMP:20260913T120110Z
-LAST-MODIFIED:20260913T120110Z
+DTSTAMP:20260913T121344Z
+LAST-MODIFIED:20260913T121344Z
 DTSTART;VALUE=DATE:20270213
 DTEND;VALUE=DATE:20270214
 SUMMARY:ATHELSTAN Court Northern Paladins No. 198
@@ -48,13 +51,14 @@ DESCRIPTION:Province of Greece — Works of the Court\nMeeting type: Meetin
  g\nLanguage: English\nWebsite: https://moa-greece.gr/\nPublished programme
  : https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
 URL:https://moa-greece.gr/
+COLOR:red
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
 UID:court-198-20270508-1@athelstan-province-greece
-DTSTAMP:20260913T120110Z
-LAST-MODIFIED:20260913T120110Z
+DTSTAMP:20260913T121344Z
+LAST-MODIFIED:20260913T121344Z
 DTSTART;VALUE=DATE:20270508
 DTEND;VALUE=DATE:20270509
 SUMMARY:ATHELSTAN Court Northern Paladins No. 198
@@ -63,6 +67,7 @@ DESCRIPTION:Province of Greece — Works of the Court\nMeeting type: Instal
  lation\nLanguage: English\nWebsite: https://moa-greece.gr/\nPublished prog
  ramme: https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
 URL:https://moa-greece.gr/
+COLOR:red
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT

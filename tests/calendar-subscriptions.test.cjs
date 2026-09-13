@@ -15,7 +15,9 @@ test('every published Court date appears only in its Court feed', () => {
     const feed = feeds.find(feed => feed.path === calendars.feedPath(name));
     const actual = events(feed.content);
     assert.equal(actual.length, expected.length);
+    assert.equal((feed.content.split('BEGIN:VEVENT')[0].match(/^COLOR:red\r$/gm) || []).length, 1);
     expected.forEach((row, i) => {
+      assert.equal((actual[i].match(/^COLOR:red\r$/gm) || []).length, 1);
       assert.ok(actual[i].includes('SUMMARY:ATHELSTAN Court ' + name + '\r\n'));
       assert.ok(actual[i].includes('LOCATION:' + row[2] + '\r\n'));
       assert.ok(actual[i].includes('URL:https://moa-greece.gr/\r\n'));

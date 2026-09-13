@@ -2,14 +2,15 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Province of Greece//Court Calendar//EN
 CALSCALE:GREGORIAN
+COLOR:red
 X-WR-CALNAME:ATHELSTAN Court Homer No. 194
 X-WR-CALDESC:Court dates published by the Province of Greece. Updates are r
  efreshed by your calendar provider.
 X-WR-TIMEZONE:Europe/Athens
 BEGIN:VEVENT
 UID:court-194-20260508-1@athelstan-province-greece
-DTSTAMP:20260913T120110Z
-LAST-MODIFIED:20260913T120110Z
+DTSTAMP:20260913T121344Z
+LAST-MODIFIED:20260913T121344Z
 DTSTART;VALUE=DATE:20260508
 DTEND;VALUE=DATE:20260509
 SUMMARY:ATHELSTAN Court Homer No. 194
@@ -18,13 +19,14 @@ DESCRIPTION:Province of Greece — Works of the Court\nMeeting type: Meetin
  g\nLanguage: English\nWebsite: https://moa-greece.gr/\nPublished programme
  : https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
 URL:https://moa-greece.gr/
+COLOR:red
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
 UID:court-194-20260911-1@athelstan-province-greece
-DTSTAMP:20260913T120110Z
-LAST-MODIFIED:20260913T120110Z
+DTSTAMP:20260913T121344Z
+LAST-MODIFIED:20260913T121344Z
 DTSTART;VALUE=DATE:20260911
 DTEND;VALUE=DATE:20260912
 SUMMARY:ATHELSTAN Court Homer No. 194
@@ -33,13 +35,14 @@ DESCRIPTION:Province of Greece — Works of the Court\nMeeting type: Meetin
  g\nLanguage: English\nWebsite: https://moa-greece.gr/\nPublished programme
  : https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
 URL:https://moa-greece.gr/
+COLOR:red
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
 UID:court-194-20270108-1@athelstan-province-greece
-DTSTAMP:20260913T120110Z
-LAST-MODIFIED:20260913T120110Z
+DTSTAMP:20260913T121344Z
+LAST-MODIFIED:20260913T121344Z
 DTSTART;VALUE=DATE:20270108
 DTEND;VALUE=DATE:20270109
 SUMMARY:ATHELSTAN Court Homer No. 194
@@ -48,13 +51,14 @@ DESCRIPTION:Province of Greece — Works of the Court\nMeeting type: Meetin
  g\nLanguage: English\nWebsite: https://moa-greece.gr/\nPublished programme
  : https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
 URL:https://moa-greece.gr/
+COLOR:red
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
 UID:court-194-20270312-1@athelstan-province-greece
-DTSTAMP:20260913T120110Z
-LAST-MODIFIED:20260913T120110Z
+DTSTAMP:20260913T121344Z
+LAST-MODIFIED:20260913T121344Z
 DTSTART;VALUE=DATE:20270312
 DTEND;VALUE=DATE:20270313
 SUMMARY:ATHELSTAN Court Homer No. 194
@@ -63,13 +67,14 @@ DESCRIPTION:Province of Greece — Works of the Court\nMeeting type: Instal
  lation\nLanguage: English\nWebsite: https://moa-greece.gr/\nPublished prog
  ramme: https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
 URL:https://moa-greece.gr/
+COLOR:red
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
 UID:court-194-20270514-1@athelstan-province-greece
-DTSTAMP:20260913T120110Z
-LAST-MODIFIED:20260913T120110Z
+DTSTAMP:20260913T121344Z
+LAST-MODIFIED:20260913T121344Z
 DTSTART;VALUE=DATE:20270514
 DTEND;VALUE=DATE:20270515
 SUMMARY:ATHELSTAN Court Homer No. 194
@@ -78,6 +83,7 @@ DESCRIPTION:Province of Greece — Works of the Court\nMeeting type: Meetin
  g\nLanguage: English\nWebsite: https://moa-greece.gr/\nPublished programme
  : https://dskiad.github.io/ATHELSTAN-PROV-CALENDAR/
 URL:https://moa-greece.gr/
+COLOR:red
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
